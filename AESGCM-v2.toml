@@ -1,0 +1,48 @@
+name = "AESGCM_GMU-v2"
+
+language.vhdl.version = 2008
+language.vhdl.synopsys = true
+
+[lwc]
+aead.algorithm = "aes128gcmv1"
+block_bits = { "AD" = 128, "PT" = 128 }
+
+[rtl]
+sources = [
+    "src_rtl/design_pkg.vhd",
+    "../LWC/hardware/LWC_config_32.vhd",
+    "../LWC/hardware/LWC_rtl/NIST_LWAPI_pkg.vhd",
+    "src_rtl/AES_pkg.vhd",
+    "src_rtl/AES_map.vhd",
+    "src_rtl/AES_invmap.vhd",
+    "src_rtl/AES_Sbox.vhd",
+    "src_rtl/AES_SubBytes.vhd",
+    "src_rtl/AES_mul.vhd",
+    "src_rtl/AES_MixColumn.vhd",
+    "src_rtl/AES_MixColumns.vhd",
+    "src_rtl/AES_ShiftRows.vhd",
+    "src_rtl/AES_KeyUpdate.vhd",
+    "src_rtl/AES_Round.vhd",
+    "src_rtl/AES_Enc_KOF_Datapath.vhd",
+    "src_rtl/AES_Enc_KOF_Control.vhd",
+    "src_rtl/AES_Enc_KOF.vhd",
+    "src_rtl/AEAD_pkg.vhd",
+    "src_rtl/v2/GCM_Mult.vhd",
+    "src_rtl/CipherCore_Datapath.vhd",
+    "src_rtl/CipherCore_Control.vhd",
+    "src_rtl/CipherCore.vhd",
+    "src_rtl/fwft_fifo.vhd",
+    "src_rtl/PreProcessor.vhd",
+    "src_rtl/PostProcessor.vhd",
+    "src_rtl/LWC.vhd",
+]
+top = "LWC"
+clock_port = "clk"
+
+[tb]
+sources = ["../LWC/hardware/LWC_tb/LWC_TB.vhd"]
+top = "LWC_TB"
+[tb.generics]
+G_FNAME_PDI.file = "KAT/pdi.txt"
+G_FNAME_SDI.file = "KAT/sdi.txt"
+G_FNAME_DO.file = "KAT/do.txt"
